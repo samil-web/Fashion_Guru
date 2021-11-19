@@ -13,6 +13,7 @@ import random as rd
 feature_list = np.array(pickle.load(open('embeddings.pkl','rb')))
 filenames = pickle.load(open('filenames.pkl','rb'))
 
+
 model = ResNet50(weights='imagenet',include_top=False,input_shape=(224,224,3))
 model.trainable = False
 
@@ -21,7 +22,11 @@ model = tensorflow.keras.Sequential([
     GlobalMaxPooling2D()
 ])
 
-st.title('Fashion Recommender System')
+st.title('Fashion Guru')
+
+guru = Image.open('Fashion_Guru.png')
+
+st.image(guru, caption='Fashion Guru')
 
 def save_uploaded_file(uploaded_file):
     try:
@@ -48,8 +53,7 @@ def recommend(features,feature_list):
     distances, indices = neighbors.kneighbors([features])
 
     return indices
-random_prices = [9.95,12.49,5.59,8.99,3.99,9.90,22.19]
-random_sizes = ['M','S','XS','L','XL']
+random_prices = [9.95,12.49,5.59,8.99,3.99,9.90,22.19,6.99,7.49,11.90]
 # steps
 # file upload -> save
 uploaded_files = st.file_uploader("Choose image of clothes", accept_multiple_files=True)
